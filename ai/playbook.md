@@ -16,6 +16,7 @@ This file defines mandatory rules that must be followed for this project.
 5. After each task:
    - Run build/tests
    - Commit changes
+   -All commits and PRs must include the Linear issue ID in the message.
    - Update the related Linear sub-issue
 6. If requirements are unclear, ask in Linear and stop.
 
