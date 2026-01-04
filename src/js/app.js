@@ -62,7 +62,23 @@ function handleRoleSelection(event) {
  */
 function handleDurationChange(event) {
     const value = parseFloat(event.target.value);
-    duration = (isNaN(value) || value < 0) ? 0 : value;
+    
+    // Validate and handle edge cases
+    if (isNaN(value)) {
+        duration = 0;
+        updateCostDisplay();
+        return;
+    }
+    
+    if (value < 0) {
+        // Prevent negative duration
+        event.target.value = 0;
+        duration = 0;
+        updateCostDisplay();
+        return;
+    }
+    
+    duration = value;
     updateCostDisplay();
 }
 
@@ -83,10 +99,33 @@ function handleAddAttendee(event) {
     const selectedRole = roleSelector ? roleSelector.value : null;
     const role = (selectedRole && selectedRole !== '') ? selectedRole : null;
     
-    // Validate inputs - handle edge cases
-    if (!name || isNaN(hourlyRate) || hourlyRate < 0) {
-        return; // Invalid input, don't add attendee (allows zero rate for volunteers)
+    // Validate inputs - handle edge cases and error handling
+    if (!name) {
+        // Name is required - HTML5 validation should catch this, but handle gracefully
+        nameInput.focus();
+        return;
     }
+    
+    if (isNaN(hourlyRate)) {
+        // Invalid number input
+        rateInput.focus();
+        rateInput.setCustomValidity('Please enter a valid number');
+        rateInput.reportValidity();
+        return;
+    }
+    
+    // Clear any previous validation messages
+    rateInput.setCustomValidity('');
+    
+    if (hourlyRate < 0) {
+        // Negative numbers not allowed
+        rateInput.focus();
+        rateInput.setCustomValidity('Hourly rate cannot be negative');
+        rateInput.reportValidity();
+        return;
+    }
+    
+    // Allow zero rate for volunteers (valid case)
     
     // Create attendee
     const attendee = createAttendee(name, hourlyRate, role);
