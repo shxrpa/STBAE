@@ -2,6 +2,7 @@
 
 // Application state
 let attendees = [];
+let duration = 0;
 
 /**
  * Initialize the application
@@ -14,6 +15,24 @@ function initializeApp() {
     if (attendeeForm) {
         attendeeForm.addEventListener('submit', handleAddAttendee);
     }
+    
+    // Get duration input
+    const durationInput = document.getElementById('meeting-duration');
+    
+    // Attach duration input handler
+    if (durationInput) {
+        durationInput.addEventListener('input', handleDurationChange);
+    }
+}
+
+/**
+ * Handle duration input change
+ * @param {Event} event - Input event
+ */
+function handleDurationChange(event) {
+    const value = parseFloat(event.target.value);
+    duration = (isNaN(value) || value < 0) ? 0 : value;
+    updateCostDisplay();
 }
 
 /**
@@ -30,9 +49,9 @@ function handleAddAttendee(event) {
     const name = nameInput.value.trim();
     const hourlyRate = parseFloat(rateInput.value);
     
-    // Validate inputs
+    // Validate inputs - handle edge cases
     if (!name || isNaN(hourlyRate) || hourlyRate < 0) {
-        return;
+        return; // Invalid input, don't add attendee (allows zero rate for volunteers)
     }
     
     // Create attendee
@@ -61,12 +80,36 @@ function renderAttendeesList() {
     // Clear existing list
     attendeesList.innerHTML = '';
     
+    // Handle edge case: empty attendees
+    if (!attendees || attendees.length === 0) {
+        return; // Show empty list
+    }
+    
     // Render each attendee
     attendees.forEach((attendee, index) => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${attendee.name} - $${attendee.hourlyRate.toFixed(2)}/hr`;
+        const attendeeText = document.createTextNode(`${attendee.name} - $${attendee.hourlyRate.toFixed(2)}/hr`);
+        listItem.appendChild(attendeeText);
+        
+        // Add remove button
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.type = 'button';
+        removeButton.addEventListener('click', () => handleRemoveAttendee(index));
+        listItem.appendChild(removeButton);
+        
         attendeesList.appendChild(listItem);
     });
+}
+
+/**
+ * Handle remove attendee
+ * @param {number} index - Index of attendee to remove
+ */
+function handleRemoveAttendee(index) {
+    attendees = removeAttendee(attendees, index);
+    renderAttendeesList();
+    updateCostDisplay();
 }
 
 /**
