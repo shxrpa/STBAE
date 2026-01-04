@@ -1,4 +1,10 @@
 /* STBAE - Should This Be an Email? - Styles */
 
-/* Styles will be added in subsequent tasks */
-
+/* Prominent cost display styling */
+#total-cost {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #e74c3c;
+    text-align: center;
+    margin: 1rem 0;
+}
