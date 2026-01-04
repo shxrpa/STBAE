@@ -8,3 +8,11 @@
     text-align: center;
     margin: 1rem 0;
 }
+
+/* Empty state styling - when cost is $0.00 */
+#cost-container:has(#total-cost) {
+    /* Container styling if needed */
+}
+
+/* Note: Empty state is handled in JavaScript (updateCostDisplay sets $0.00) */
+/* Visual distinction is achieved through the same styling when value is $0.00 */
