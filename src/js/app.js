@@ -4,6 +4,16 @@
 let attendees = [];
 let duration = 0;
 
+// Role presets with default hourly rates
+const ROLE_PRESETS = {
+    'Engineer': 150,
+    'Manager': 200,
+    'Designer': 120,
+    'Product Manager': 175,
+    'Executive': 300,
+    'Consultant': 250
+};
+
 /**
  * Initialize the application
  */
@@ -22,6 +32,27 @@ function initializeApp() {
     // Attach duration input handler
     if (durationInput) {
         durationInput.addEventListener('input', handleDurationChange);
+    }
+    
+    // Get role selector
+    const roleSelector = document.getElementById('attendee-role');
+    
+    // Attach role selection handler
+    if (roleSelector) {
+        roleSelector.addEventListener('change', handleRoleSelection);
+    }
+}
+
+/**
+ * Handle role selection change
+ * @param {Event} event - Change event
+ */
+function handleRoleSelection(event) {
+    const selectedRole = event.target.value;
+    const rateInput = document.getElementById('attendee-rate');
+    
+    if (selectedRole && selectedRole !== '' && ROLE_PRESETS[selectedRole]) {
+        rateInput.value = ROLE_PRESETS[selectedRole];
     }
 }
 
@@ -45,9 +76,12 @@ function handleAddAttendee(event) {
     // Get form data
     const nameInput = document.getElementById('attendee-name');
     const rateInput = document.getElementById('attendee-rate');
+    const roleSelector = document.getElementById('attendee-role');
     
     const name = nameInput.value.trim();
     const hourlyRate = parseFloat(rateInput.value);
+    const selectedRole = roleSelector ? roleSelector.value : null;
+    const role = (selectedRole && selectedRole !== '') ? selectedRole : null;
     
     // Validate inputs - handle edge cases
     if (!name || isNaN(hourlyRate) || hourlyRate < 0) {
@@ -55,13 +89,16 @@ function handleAddAttendee(event) {
     }
     
     // Create attendee
-    const attendee = createAttendee(name, hourlyRate);
+    const attendee = createAttendee(name, hourlyRate, role);
     
     // Add to attendees array
     attendees = addAttendee(attendees, attendee);
     
     // Reset form
     event.target.reset();
+    if (roleSelector) {
+        roleSelector.value = '';
+    }
     
     // Update attendees list display
     renderAttendeesList();
@@ -88,8 +125,15 @@ function renderAttendeesList() {
     // Render each attendee
     attendees.forEach((attendee, index) => {
         const listItem = document.createElement('li');
-        const attendeeText = document.createTextNode(`${attendee.name} - $${attendee.hourlyRate.toFixed(2)}/hr`);
-        listItem.appendChild(attendeeText);
+        
+        // Build attendee text with role if present
+        let attendeeText = `${attendee.name} - $${attendee.hourlyRate.toFixed(2)}/hr`;
+        if (attendee.role) {
+            attendeeText = `${attendee.name} (${attendee.role}) - $${attendee.hourlyRate.toFixed(2)}/hr`;
+        }
+        
+        const textNode = document.createTextNode(attendeeText);
+        listItem.appendChild(textNode);
         
         // Add remove button
         const removeButton = document.createElement('button');
