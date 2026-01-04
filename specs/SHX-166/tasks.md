@@ -124,6 +124,13 @@ description: "Task list for STBAE MVP implementation"
 - [ ] T033 [P] Code cleanup and refactoring (ensure code is readable and maintainable)
 
 ---
+## Phase 7: Additional UI improvements - User Story 4
+
+**Purpose**: Improvements that affect the overall application for UI
+
+- [ ] T034 [P] Update the screen so it all shows without the need to scroll at all
+- [ ] T035 [P] Add a heading that says "Should this be an Email?" 
+- [ ] T036 [P] update the colors so that it is dark theme with a cool color scheme
 
 ## Dependencies & Execution Order
 
@@ -134,6 +141,7 @@ description: "Task list for STBAE MVP implementation"
 - **User Stories (Phase 3+)**: All depend on Foundational phase completion
   - User stories proceed sequentially in priority order (P1 → P2 → P3)
 - **Polish (Phase 6)**: Depends on all desired user stories being complete
+- **Update (Phase 8)** : additional changes needed
 
 ### User Story Dependencies
 
