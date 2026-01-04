@@ -12,6 +12,8 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    background-color: #1a1f2e;
+    color: #e0e6ed;
 }
 
 main {
@@ -25,9 +27,10 @@ main {
 
 section {
     padding: 0.75rem;
-    background-color: #f8f9fa;
+    background-color: #252b3d;
     border-radius: 8px;
     flex-shrink: 0;
+    border: 1px solid #2d3448;
 }
 
 h1 {
@@ -35,12 +38,14 @@ h1 {
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
+    color: #64b5f6;
 }
 
 h2 {
     margin-top: 0;
     margin-bottom: 0.5rem;
     font-size: 1.125rem;
+    color: #90caf9;
 }
 
 /* Form styles */
@@ -55,6 +60,7 @@ label {
     display: block;
     margin-bottom: 0.125rem;
     font-size: 0.9rem;
+    color: #b0bec5;
 }
 
 input[type="text"],
@@ -62,26 +68,33 @@ input[type="number"],
 select {
     padding: 0.5rem;
     font-size: 0.9rem;
-    border: 1px solid #ddd;
+    border: 1px solid #3d4557;
     border-radius: 4px;
     width: 100%;
     box-sizing: border-box;
     transition: border-color 0.2s ease;
+    background-color: #2d3448;
+    color: #e0e6ed;
 }
 
 input[type="text"]:focus,
 input[type="number"]:focus,
 select:focus {
     outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    border-color: #64b5f6;
+    box-shadow: 0 0 0 2px rgba(100, 181, 246, 0.3);
+}
+
+select {
+    background-color: #2d3448;
+    color: #e0e6ed;
 }
 
 button {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
-    background-color: #3498db;
-    color: white;
+    background-color: #4fc3f7;
+    color: #1a1f2e;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -90,7 +103,7 @@ button {
 }
 
 button:hover {
-    background-color: #2980b9;
+    background-color: #29b6f6;
     transform: translateY(-1px);
 }
 
@@ -99,14 +112,15 @@ button:active {
 }
 
 button[type="button"] {
-    background-color: #e74c3c;
+    background-color: #78909c;
+    color: #ffffff;
     font-size: 0.75rem;
     padding: 0.375rem 0.75rem;
     margin-left: 0.5rem;
 }
 
 button[type="button"]:hover {
-    background-color: #c0392b;
+    background-color: #607d8b;
 }
 
 /* Attendees list */
@@ -120,19 +134,20 @@ ul {
 
 li {
     padding: 0.5rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #3d4557;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
+    background-color: #2d3448;
     border-radius: 4px;
     margin-bottom: 0.25rem;
     transition: background-color 0.2s ease;
     font-size: 0.9rem;
+    color: #e0e6ed;
 }
 
 li:hover {
-    background-color: #f8f9fa;
+    background-color: #353c52;
 }
 
 li:last-child {
@@ -144,7 +159,7 @@ li:last-child {
 #total-cost {
     font-size: 2rem;
     font-weight: bold;
-    color: #e74c3c;
+    color: #81c784;
     text-align: center;
     margin: 0.5rem 0;
     transition: color 0.3s ease;
