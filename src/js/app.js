@@ -44,7 +44,26 @@ function handleAddAttendee(event) {
     // Reset form
     event.target.reset();
     
-    // TODO: Update UI in subsequent tasks
+    // Update attendees list display
+    renderAttendeesList();
+}
+
+/**
+ * Render attendees list in the DOM
+ */
+function renderAttendeesList() {
+    const attendeesList = document.getElementById('attendees-list');
+    if (!attendeesList) return;
+    
+    // Clear existing list
+    attendeesList.innerHTML = '';
+    
+    // Render each attendee
+    attendees.forEach((attendee, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${attendee.name} - $${attendee.hourlyRate.toFixed(2)}/hr`;
+        attendeesList.appendChild(listItem);
+    });
 }
 
 // Initialize app when DOM is ready
