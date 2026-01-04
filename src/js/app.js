@@ -46,6 +46,9 @@ function handleAddAttendee(event) {
     
     // Update attendees list display
     renderAttendeesList();
+    
+    // Update cost display
+    updateCostDisplay();
 }
 
 /**
@@ -64,6 +67,23 @@ function renderAttendeesList() {
         listItem.textContent = `${attendee.name} - $${attendee.hourlyRate.toFixed(2)}/hr`;
         attendeesList.appendChild(listItem);
     });
+}
+
+/**
+ * Update cost display
+ */
+function updateCostDisplay() {
+    const costDisplay = document.getElementById('total-cost');
+    if (!costDisplay) return;
+    
+    // Handle edge cases: empty attendees or zero duration
+    if (!attendees || attendees.length === 0 || !duration || duration <= 0) {
+        costDisplay.textContent = '$0.00';
+        return;
+    }
+    
+    const totalCost = calculateTotalMeetingCost(attendees, duration);
+    costDisplay.textContent = `$${totalCost.toFixed(2)}`;
 }
 
 // Initialize app when DOM is ready
